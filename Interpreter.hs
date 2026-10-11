@@ -3,6 +3,7 @@ module Interpreter where
 import qualified Data.Map.Strict as Map
 import Parser.Ast
 import qualified Scanner
+import MoreIO (promptNumber)
 
 
 type Context = Map.Map String Double
@@ -58,3 +59,48 @@ evaluateBinary operator leftValue rightValue =
   where
     leftTruth = booleanNumber (leftValue /= 0)
     rightTruth = booleanNumber (rightValue /= 0)
+
+execute :: Statement -> Context -> IO Context
+execute (Assignment name expression) context =
+  return (Map.insert name (evaluate expression context) context)
+
+execute (ScanStatement name) context = do
+  value <- promptNumber name
+  return (Map.insert name value context)
+
+execute (PrintStatement expression) context = do
+  print (evaluate expression context)
+  return context
+
+execute (Block statements) context =
+  executeStatements statements context
+
+execute (IfStatement condition statement) context =
+  if evaluate condition context /= 0
+    then execute statement context
+    else return context
+
+execute (IfElseStatement condition thenStatement elseStatement) context =
+  if evaluate condition context /= 0
+    then execute thenStatement context
+    else execute elseStatement context
+
+execute (WhileStatement condition statement) context =
+  if evaluate condition context /= 0
+    then do
+      updatedContext <- execute statement context
+      execute (WhileStatement condition statement) updatedContext
+    else return context
+
+execute (DoWhileStatement statement condition) context = do
+  updatedContext <- execute statement context
+  if evaluate condition updatedContext /= 0
+    then execute (DoWhileStatement statement condition) updatedContext
+    else return updatedContext
+
+
+executeStatements :: [Statement] -> Context -> IO Context
+executeStatements [] context = return context
+executeStatements (statement : remainingStatements) context = do
+  updatedContext <- execute statement context
+  executeStatements remainingStatements updatedContext
