@@ -1,0 +1,11 @@
+scan n;
+r = n / 2;
+do {
+    s = r;
+    r = (n/s + s)/2;
+    if (r > s)
+        t = r - s;
+    else
+        t = s - r;
+} while (t > 0.0000001);
+print r;

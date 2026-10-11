@@ -1,0 +1,16 @@
+{
+  "name": "Haskell (ghcup)",
+  "image": "ghcr.io/gfoust/haskell-devcontainer:latest",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "haskell.haskell",
+        "spencerwmiles.vscode-task-buttons"
+      ],
+      "settings": {
+        "haskell.manageHLS": "GHCup",
+        "haskell.ghcupExecutablePath": "/root/.ghcup/bin/ghcup"
+      }
+    }
+  }
+}

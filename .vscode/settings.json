@@ -1,0 +1,20 @@
+{
+  "haskell.plugin.importLens.codeLensOn": false,
+  "VsCodeTaskButtons.tasks": [
+    {
+      "label": "$(build) GHC",
+      "task": "Haskell: Build (ghc)",
+      "tooltip": "Compile Main.hs with ghc"
+    },
+    {
+      "label": "$(debug-all) GHCi",
+      "task": "Haskell: Load in GHCi",
+      "tooltip": "Load the current file in GHCi"
+    },
+    {
+      "label": "$(play) Run",
+      "task": "Haskell: Run (runghc)",
+      "tooltip": "Run Main.hs with runghc"
+    }
+  ]
+}

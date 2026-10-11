@@ -1,0 +1,10 @@
+scan num;
+factor = 2;
+while (num > 1) {
+    if (num % factor)
+        factor = factor + 1;
+    else {
+        print factor;
+        num = num / factor;
+    }
+}
