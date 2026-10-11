@@ -1,2 +1,5 @@
 build
 elwim
+elwim.exe
+*.hi
+*.o
