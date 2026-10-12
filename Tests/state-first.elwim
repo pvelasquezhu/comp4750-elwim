@@ -1,0 +1,4 @@
+score = 7;
+{
+    score = score + 3;
+}

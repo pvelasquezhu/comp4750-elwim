@@ -68,7 +68,7 @@ scanToken = do
 
 allTokens :: Scanner [PosToken]
 allTokens = do
-  tokens <- some scanToken
+  tokens <- many scanToken
   scanWhitespace
   pos <- Stream.getPos
   eof <- Stream.getEof
